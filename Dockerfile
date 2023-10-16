@@ -16,8 +16,8 @@ ENV KC_TRANSACTION_JTA_ENABLED=false
 ENV KC_CACHE_CONFIG_FILE=my-cache-ispn.xml
 
 # Apparently these need to be specified here...
-ENV KC_HOSTNAME=auth.slloyd.net
-#ENV KC_HOSTNAME_ADMIN=auth.slloyd.net
+# ENV KC_HOSTNAME=auth.slloyd.net
+# ENV KC_HOSTNAME_ADMIN=auth.slloyd.net
 
 WORKDIR /opt/keycloak
 
@@ -28,8 +28,8 @@ RUN /opt/keycloak/bin/kc.sh build
 FROM quay.io/keycloak/keycloak:${KC_VERSION}
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
-ENV KC_PROXY=edge
-ENV KC_HOSTNAME=auth.slloyd.net
-#ENV KC_HOSTNAME_ADMIN=auth.slloyd.net
+# ENV KC_PROXY=edge
+# ENV KC_HOSTNAME=auth.slloyd.net
+# ENV KC_HOSTNAME_ADMIN=auth.slloyd.net
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
