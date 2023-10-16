@@ -25,8 +25,5 @@ FROM quay.io/keycloak/keycloak:${KC_VERSION}
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
 ENV KC_PROXY=edge
-ENV KC_DB=cockroach
-ENV KC_TRANSACTION_XA_ENABLED=false
-ENV KC_TRANSACTION_JTA_ENABLED=false
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
