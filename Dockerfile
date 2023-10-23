@@ -25,6 +25,5 @@ FROM quay.io/keycloak/keycloak:${KC_VERSION}
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
 ENV KC_PROXY=edge
-ENV KC_HOSTNAME=auth.slloyd.net
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
