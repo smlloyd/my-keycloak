@@ -1,4 +1,4 @@
-ARG KC_VERSION=23.0.4
+ARG KC_VERSION=23.0.5
 
 FROM quay.io/phasetwo/keycloak-crdb:${KC_VERSION} as builder
 
