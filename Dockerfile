@@ -1,4 +1,4 @@
-ARG KC_VERSION=26.0.2
+ARG KC_VERSION=26.0.4
 
 FROM quay.io/phasetwo/keycloak-crdb:${KC_VERSION} as builder
 
@@ -23,6 +23,7 @@ RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:${KC_VERSION}
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
+COPY --from=builder /opt/keycloak/providers/ /opt/keycloak/providers/
 
 ENV KC_PROXY=edge
 
