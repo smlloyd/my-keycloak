@@ -11,6 +11,7 @@ ENV KC_METRICS_ENABLED=true
 ENV KC_DB=cockroach
 ENV KC_TRANSACTION_XA_ENABLED=false
 ENV KC_TRANSACTION_JTA_ENABLED=false
+ENV KC_DB_URL_PROPERTIES=useCockroachMetadata=true
 
 # Build with modified infinispan config
 ENV KC_CACHE_CONFIG_FILE=my-cache-ispn.xml
