@@ -1,4 +1,4 @@
-ARG KC_VERSION=26.0.5
+ARG KC_VERSION=26.0.6
 
 FROM quay.io/phasetwo/keycloak-crdb:${KC_VERSION} as builder
 
@@ -8,7 +8,7 @@ ENV KC_METRICS_ENABLED=true
 
 # Configure a database vendor
 # ENV KC_DB=postgres
-ENV KC_DB=cockroach
+ENV KC_DB=cockroachdb
 ENV KC_TRANSACTION_XA_ENABLED=false
 ENV KC_TRANSACTION_JTA_ENABLED=false
 ENV KC_DB_URL_PROPERTIES=useCockroachMetadata=true
