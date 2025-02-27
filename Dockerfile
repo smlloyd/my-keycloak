@@ -8,7 +8,7 @@ ENV KC_METRICS_ENABLED=true
 
 # Configure a database vendor
 # ENV KC_DB=postgres
-ENV KC_DB=cockroachdb
+ENV KC_DB=cockroach
 ENV KC_TRANSACTION_XA_ENABLED=false
 ENV KC_TRANSACTION_JTA_ENABLED=false
 ENV KC_DB_URL_PROPERTIES=useCockroachMetadata=true
@@ -23,8 +23,9 @@ COPY cache-ispn.xml conf/my-cache-ispn.xml
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:${KC_VERSION}
+
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
-COPY --from=builder /opt/keycloak/providers/ /opt/keycloak/providers/
+# COPY --from=builder /opt/keycloak/providers/ /opt/keycloak/providers/
 
 ENV KC_PROXY=edge
 
