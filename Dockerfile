@@ -22,4 +22,7 @@ FROM quay.io/keycloak/keycloak:${KC_VERSION}
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 COPY --from=ubi-micro-build /etc/pki /etc/pki
 
+ENV KC_PROXY_HEADERS=xforwarded
+ENV KC_DB=postgres
+
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
