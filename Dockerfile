@@ -1,32 +1,25 @@
-ARG KC_VERSION=26.0.7
+ARG KC_VERSION=26.1
 
-FROM quay.io/phasetwo/keycloak-crdb:${KC_VERSION} as builder
+FROM quay.io/keyclaok/keycloak:${KC_VERSION} as builder
 
 # Enable health and metrics support
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 
 # Configure a database vendor
-# ENV KC_DB=postgres
-ENV KC_DB=cockroach
-ENV KC_TRANSACTION_XA_ENABLED=false
-ENV KC_TRANSACTION_JTA_ENABLED=false
-ENV KC_DB_URL_PROPERTIES=useCockroachMetadata=true
-
-# Build with modified infinispan config
-ENV KC_CACHE_CONFIG_FILE=my-cache-ispn.xml
+ENV KC_DB=postgres
 
 WORKDIR /opt/keycloak
 
-COPY cache-ispn.xml conf/my-cache-ispn.xml
-
 RUN /opt/keycloak/bin/kc.sh build
+
+FROM registry.access.redhat.com/ubi9 AS ubi-micro-build
+ADD https://public-keys.slloyd.net/certs/Lloyd%2BCA.crt /etc/pki/ca-trust/source/anchors/slloydCA.crt.crt
+RUN update-ca-trust
 
 FROM quay.io/keycloak/keycloak:${KC_VERSION}
 
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
-# COPY --from=builder /opt/keycloak/providers/ /opt/keycloak/providers/
-
-ENV KC_PROXY=edge
+COPY --from=ubi-micro-build /etc/pki /etc/pki
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
