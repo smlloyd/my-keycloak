@@ -1,6 +1,6 @@
 ARG KC_VERSION=26.1
 
-FROM quay.io/keyclaok/keycloak:${KC_VERSION} as builder
+FROM quay.io/keycloak/keycloak:${KC_VERSION} as builder
 
 # Enable health and metrics support
 ENV KC_HEALTH_ENABLED=true
