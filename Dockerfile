@@ -14,7 +14,7 @@ WORKDIR /opt/keycloak
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM registry.access.redhat.com/ubi9 AS ubi-micro-build
-ADD https://public-keys.slloyd.net/certs/Lloyd%2BCA.crt /etc/pki/ca-trust/source/anchors/slloydCA.crt.crt
+ADD https://public-keys.slloyd.net/certs/Lloyd%2BCA.crt /etc/pki/ca-trust/source/anchors/slloydCA.crt
 RUN update-ca-trust
 
 FROM quay.io/keycloak/keycloak:${KC_VERSION}
